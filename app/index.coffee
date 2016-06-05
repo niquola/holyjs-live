@@ -2,10 +2,11 @@ require('file?name=index.html!./index.html')
 
 app = angular.module 'app', []
 
+host = "http://dev.health-samurai.io:3000"
 
 call_sql = ($http, $scope, sql, cb)->
   start = new Date()
-  $http(method: 'POST', url: "http://localhost:8000/sql", data: {query: sql})
+  $http(method: 'POST', url: "#{host}/sql", data: {query: sql})
   .success (data)->
     $scope.error = null
     $scope.time = (new Date() - start)
@@ -16,7 +17,7 @@ call_sql = ($http, $scope, sql, cb)->
     $scope.error = err
 
 call_fn = ($http, $scope, fn, args, cb)->
-  $http(method: 'POST', url: "http://localhost:8000/fn/#{fn}", data: args)
+  $http(method: 'POST', url: "#{host}/fn/#{fn}", data: args)
   .error (err)-> $scope.error = err
 
 app.controller 'IndexCtrl', ($scope, $http)->
