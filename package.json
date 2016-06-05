@@ -1,0 +1,35 @@
+{
+    "name": "fhirbase",
+    "description": "fhirbase",
+    "version": "0.0.1",
+    "author": "niquola",
+    "homepage": "https://github.com/niquola/plpl",
+    "dependencies": {
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/niquola/fhirbase"
+    },
+    "devDependencies": {
+        "coffee-script": "latest",
+        "pg-native":"latest",
+        "plpl": "latest",
+        "mocha": "latest",
+        "express": "latest",
+        "body-parser": "latest",
+
+        "coffee-loader": "latest",
+        "file-loader": "latest",
+        "webpack": "latest",
+        "extract-text-webpack-plugin": "latest",
+        "webpack-dev-server": "latest"
+  },
+    "files": ["bin", "lib", "src"],
+    "scripts": {
+        "reload": "`npm bin`/plpl reload",
+        "compile": "`npm bin`/lpl compile",
+        "test": "node_modules/mocha/bin/mocha --compilers mocha --compilers coffee:coffee-script/register  --recursive",
+        "start": "webpack-dev-server --progress --colors"
+    }
+
+}

@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+    <title>HolyJS</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <style>
+     pre.result {
+       font-size: 1.3em;
+     }
+     textarea.code {
+        font-size: 2em;
+        min-height: 250px;
+     }
+     .item {
+        padding: 0.1em;
+     }
+     .item.active {
+         font-weight: bold;
+     }
+     .table {
+         font-size:1.3em;
+     }
+    </style>
+    <div class="container-fluid" ng-controller="IndexCtrl">
+      <h3><b>#{{slide.id}}</b>
+        {{slide.title}}
+        <span style ="color: red; text-align: right; ">({{time}} ms)</span>
+        <button class="btn btn-success btn-sm" ng-click="execute(slide.code)">Execute</button>
+
+
+        <div class="pull-right">
+          <input class="form-control" style="display:inline-block;width:20em;" ng-model="form.title" />
+          <button class="btn btn-success btn-sm" ng-click="create(form.title, slide.code)">Save As</button>
+          <button class="btn btn-primary btn-sm" ng-click="update(slide)">Update</button>
+          <a class="btn btn-danger btn-sm" ng-click="remove(slide)">Remove</a>
+        </div>
+      </h3>
+      <hr/>
+      <div class="row">
+        <div class="col-md-9">
+
+          <textarea class="form-control code" ng-model="slide.code"
+                    ng-keydown="keypress($event, slide.code)"></textarea>
+
+          <table class="table">
+            <tr>
+              <th ng-repeat="(k,v) in result[0]">
+                {{k}}
+              </th>
+            </tr>
+            <tr ng-repeat="row in result">
+              <td ng-repeat="(k,v) in result[0]">
+                {{row[k]}}
+              </td>
+            </tr>
+          </table>
+
+          <div class="alert alert-danger" ng-if="error"> {{error}} </div>
+
+          <hr/>
+        </div>
+        <div class="col-md-3">
+          <div class="item" ng-repeat="sl in slides" ng-class="{'active': slide.id == sl.id}">
+            <a ng-click="up(sl)">&#8679;</a>
+            <a ng-click="down(sl)">&#8681;</a>
+            <span ng-click="setSlide(sl)"> #{{sl.position}} {{sl.title}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.6/angular.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
