@@ -8,9 +8,16 @@ json_call = (fn_name, params...) ->
   JSON.parse(res[0][fn_name])
 
 describe "add slide", ()->
-  res = subject.add_slide plv8,
+  count = plv8.execute('select count(*) as count from slides')[0].count
+
+  slide = subject.add_slide plv8,
     title: "Pg is awesome"
     code: "SELECT 'pg is awesome'"
-  console.log(res)
 
+  slide = JSON.parse(slide)
 
+  new_count = plv8.execute('select count(*) as count from slides')[0].count
+
+  subject.rm_slide(plv8, slide)
+
+  assert.equal(parseInt(count) + 1, parseInt(new_count))

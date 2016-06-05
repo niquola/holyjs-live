@@ -6,7 +6,7 @@ exports.add_slide = function(plv8, obj){
     ' RETURNING *',
     [obj.title, obj.code]
   );
-  return res[0];
+  return JSON.stringify(res[0]);
 };
 exports.add_slide.plv8_signature = ['json','json'];
 
